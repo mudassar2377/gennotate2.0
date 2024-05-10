@@ -202,26 +202,25 @@ const GennotateState = (props) =>{
     const cleanImages = (userId) => {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('userId', userId); // Include userId in the FormData object
-      fetch(`http://127.0.0.1:8000/cleanImages/`, {
+      fetch(`http://127.0.0.1:8000/cleanImages/?userId=${userId}`, {
         method: 'POST',
         body: formData,
       })
       .then((response) => {
         if (!response.ok) {
-          console.log(response)
+          console.log(response);
           throw new Error('Network response was not ok');
         }
         return response.json();
       })
       .then((responseData) => {
-        console.log(responseData)
+        console.log(responseData);
       })
       .catch((error) => {
         console.log('Error:', error.message || 'An error occurred.');
       });
     };    
-  return(
+    return(
         <GennotateContext.Provider value={{ authentication, setAuthentication, seeLoginPassword, setSeeLoginPassword, seeSignUpPassword, setSeeSignUpPassword, seeSignUpConfirmPassword, setSeeSignUpConfirmPassword, login, user, authenticationMsg, setAuthenticationMsg, signup, hasOnlySpacesAndAlphabets, isUsernameValid, generateAlert, setGenerateAlert, alertMsg, setAlertMsg, generateImages, authenticateAlert, setAuthenticateAlert, openNav, setOpenNav, handleNavbar1, setHandleNavbar1, handleNavbar2, setHandleNavbar2, data, setData, getGeneratedImages, openModal, handleOpenModal, handleCloseModal, selected, setSelected, temp, setTemp, segmentImages, getSegmentedImages, data2, setData2, temp2, setTemp2, file, setFile, cleanImages, setUser, open, setOpen }}>
             {props.children}
         </GennotateContext.Provider>

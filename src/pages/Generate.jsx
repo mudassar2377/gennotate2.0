@@ -1,18 +1,18 @@
-import React, { useEffect, useContext } from 'react'
-import { Box, Grid, Typography, TextField, Button } from '@mui/material';
-import GenerateCard from '../components/GenerateCard';
-import Image1 from '/image1-generated.jpeg';
+import React, { useEffect, useContext, useState } from 'react'
+import { Box, Grid, Typography, TextField, Button, Tooltip } from '@mui/material';
 import Image2 from '/image7-normal.png';
 import Image3 from '/image8-cnv.png';
 import Image4 from '/image9-dme.png';
 import Image5 from '/image10-drusen.png';
 import gennotateContext from '../gennotateContext/gennotateContext';
 import GenerateAlert from '../components/GenerateAlert';
+import { FaAngleRight, FaChevronLeft } from "react-icons/fa6";
 
 const Generate = () => {
-    useEffect(()=>{
-        window.scrollTo(0, 0);
-      }, [])
+    const [left, setLeft] = useState(0)
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
       const context = useContext(gennotateContext);
       const { setAlertMsg, setGenerateAlert, generateImages, user } = context;
       const handleSubmit = (e) =>{
@@ -28,8 +28,7 @@ const Generate = () => {
         else {
             setGenerateAlert(false)
             const startTime = performance.now()
-            // generateImages({ userId: user.id, num: parseInt(normal) }, startTime); // Corrected variable name
-            generateImages({ "userId": 4, "normal": parseInt(normal), "cnv": parseInt(cnv), "dme": parseInt(dme), "drusen": parseInt(drusen) }, startTime); // Corrected variable name
+            generateImages({ "userId": user.id, "normal": parseInt(normal), "cnv": parseInt(cnv), "dme": parseInt(dme), "drusen": parseInt(drusen) }, startTime); // Corrected variable name
         }
     }
     
@@ -37,7 +36,9 @@ const Generate = () => {
     <Box>
       <Box sx={{ width: '100%', height: '5vw' }}></Box>
       <Box sx={{ width: '100%', height: '45vw', position: 'relative', overflow: 'hidden' }} my={10}>
-        <Box sx={{ position: 'absolute', top: 0, left: '0%', width: '500%', height: '45vw', display: 'flex', animationName: 'animation11', animationDuration: '48s', animationIterationCount: 'infinite' }}>
+        <Box sx={{ position: 'absolute', top: 0, left: `${left * 100}%`, width: '500%', height: '45vw', display: 'flex', transition: '1s ease left'
+        // animationName: 'animation11', animationDuration: '48s', animationIterationCount: 'infinite' 
+        }}>
           <Box sx={{ width: '25%', height: '45vw' }} px={6}>
             <Box sx={{ width: '100%', height: '100%' }}>
               <Grid container>
@@ -48,6 +49,15 @@ const Generate = () => {
                 <Typography textAlign='justify' sx={{ color: '#154d4f', fontSize: { sm: '1.2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }} my={3} pr={10}>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In a normal OCT image, the retinal layers, including the nerve fiber layer, ganglion cell layer, inner plexiform layer, inner nuclear layer, outer plexiform layer, outer nuclear layer, photoreceptor layer (containing the outer segments of photoreceptor cells), retinal pigment epithelium (RPE), and choroid, are well-defined and exhibit a regular arrangement.
                 </Typography>
+                <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center' }} pr={10} mt={2}>
+                  <Tooltip arrow title='previous' onClick={()=>{}}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaChevronLeft /></Box>
+                  </Tooltip>
+                  <Box mx={1}></Box>
+                  <Tooltip arrow title='next' onClick={()=>{ setLeft(-1); }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaAngleRight /></Box>
+                  </Tooltip>
+                </Box>
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
                   <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154138/neosj2t0guyu4ygvjojb.png' alt='Image' width='100%' height='100%'/>
@@ -67,6 +77,15 @@ const Generate = () => {
           <Typography textAlign='justify' sx={{ color: '#154d4f', fontSize: { sm: '1.2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }}>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In Optical Coherence Tomography (OCT) images, Choroidal Neovascularization(CNV) appears as irregular, highly reflective areas beneath the retina. These abnormal blood vessels can disrupt the normal architecture of the retina, leading to symptoms such as vision loss or distortion.
           </Typography>
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center' }} mt={2}>
+                  <Tooltip arrow title='previous' onClick={()=>{ setLeft(0) }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaChevronLeft /></Box>
+                  </Tooltip>
+                  <Box mx={1}></Box>
+                  <Tooltip arrow title='next' onClick={()=>{ setLeft(-2); }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaAngleRight /></Box>
+                  </Tooltip>
+                </Box>
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
                   <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154144/ffbnc4zlc3ygsuhqp6e8.png' alt='Image' width='100%' height='100%'/>
@@ -85,6 +104,15 @@ const Generate = () => {
           <Typography textAlign='justify' sx={{ color: '#154d4f', fontSize: { sm: '1.2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }}>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In Optical Coherence Tomography (OCT) images, Diabetic Macular Edema(DME) appears as areas of thickening and fluid accumulation within the macula.
           </Typography>
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center' }} mt={2}>
+                  <Tooltip arrow title='previous' onClick={()=>{ setLeft(-1); }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaChevronLeft /></Box>
+                  </Tooltip>
+                  <Box mx={1}></Box>
+                  <Tooltip arrow title='next' onClick={()=>{ setLeft(-3); }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaAngleRight /></Box>
+                  </Tooltip>
+                </Box>
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
                   <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154153/naqtqgh7rukglhy82mpt.png' alt='Image' width='100%' height='100%'/>
@@ -103,6 +131,15 @@ const Generate = () => {
           <Typography textAlign='justify' sx={{ color: '#154d4f', fontSize: { sm: '1.2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }}>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In Optical Coherence Tomography (OCT) images, drusen appear as distinct elevations above the retinal pigment epithelium (RPE) or as deposits within the RPE layer itself.
           </Typography>
+          <Box sx={{ width: '100%', display: 'flex', flexDirection: 'row', justifyContent: 'right', alignItems: 'center' }} mt={2}>
+                  <Tooltip arrow title='previous' onClick={()=>{ setLeft(-2) }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaChevronLeft /></Box>
+                  </Tooltip>
+                  <Box mx={1}></Box>
+                  <Tooltip arrow title='next' onClick={()=>{ setLeft(-4) }}>
+                  <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaAngleRight /></Box>
+                  </Tooltip>
+                </Box>
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
                   <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154159/ltxge1yfbrcszjt3h0km.png' alt='Image' width='100%' height='100%'/>
@@ -119,6 +156,7 @@ const Generate = () => {
                 <Typography textAlign='justify' sx={{ color: '#154d4f', fontSize: { sm: '1.2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }} my={3} pr={10}>
                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In a normal OCT image, the retinal layers, including the nerve fiber layer, ganglion cell layer, inner plexiform layer, inner nuclear layer, outer plexiform layer, outer nuclear layer, photoreceptor layer (containing the outer segments of photoreceptor cells), retinal pigment epithelium (RPE), and choroid, are well-defined and exhibit a regular arrangement.
                 </Typography>
+                <Box>Hashir</Box>
                 </Grid>
                 <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
                   <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154138/neosj2t0guyu4ygvjojb.png' alt='Image' width='100%' height='100%'/>
