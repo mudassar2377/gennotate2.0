@@ -36,7 +36,7 @@ const Generate = () => {
     <Box>
       <Box sx={{ width: '100%', height: '5vw' }}></Box>
       <Box sx={{ width: '100%', height: '45vw', position: 'relative', overflow: 'hidden' }} my={10}>
-        <Box sx={{ position: 'absolute', top: 0, left: `${left * 100}%`, width: '500%', height: '45vw', display: 'flex', transition: '1s ease left'
+        <Box sx={{ position: 'absolute', top: 0, left: `${left * 100}%`, width: '400%', height: '45vw', display: 'flex', transition: '1s ease left'
         // animationName: 'animation11', animationDuration: '48s', animationIterationCount: 'infinite' 
         }}>
           <Box sx={{ width: '25%', height: '45vw' }} px={6}>
@@ -136,7 +136,7 @@ const Generate = () => {
                   <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaChevronLeft /></Box>
                   </Tooltip>
                   <Box mx={1}></Box>
-                  <Tooltip arrow title='next' onClick={()=>{ setLeft(-4) }}>
+                  <Tooltip arrow title='next' onClick={()=>{ }}>
                   <Box sx={{ width: '3vw', height: '3vw', background: '#154d4f', color: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><FaAngleRight /></Box>
                   </Tooltip>
                 </Box>
@@ -145,24 +145,6 @@ const Generate = () => {
                   <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154159/ltxge1yfbrcszjt3h0km.png' alt='Image' width='100%' height='100%'/>
                 </Grid>
               </Grid>
-          </Box>
-          <Box sx={{ width: '25%', height: '45vw' }} px={6}>
-            <Box sx={{ width: '100%', height: '100%' }}>
-              <Grid container>
-                <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column' }}>
-                <Typography textAlign='left' sx={{ fontWeight: 700, color: '#154d4f', fontSize: { sm: '2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }}>
-                  Normal
-                </Typography>
-                <Typography textAlign='justify' sx={{ color: '#154d4f', fontSize: { sm: '1.2vw', xs: '9vw' }, fontFamily: '"Rubik", sans-serif', width: '100%' }} my={3} pr={10}>
-                  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;In a normal OCT image, the retinal layers, including the nerve fiber layer, ganglion cell layer, inner plexiform layer, inner nuclear layer, outer plexiform layer, outer nuclear layer, photoreceptor layer (containing the outer segments of photoreceptor cells), retinal pigment epithelium (RPE), and choroid, are well-defined and exhibit a regular arrangement.
-                </Typography>
-                <Box>Hashir</Box>
-                </Grid>
-                <Grid item xs={12} sm={6} sx={{ display: 'flex', alignItems: 'center', justifyContent: 'left' }}>
-                  <img src='https://res.cloudinary.com/dnmy80tpe/image/upload/v1715154138/neosj2t0guyu4ygvjojb.png' alt='Image' width='100%' height='100%'/>
-                </Grid>
-              </Grid>
-            </Box>
           </Box>
         </Box>
       </Box>

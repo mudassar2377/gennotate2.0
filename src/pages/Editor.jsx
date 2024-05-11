@@ -20,9 +20,6 @@ import { LuRectangleHorizontal } from "react-icons/lu";
 import { LuCircle } from "react-icons/lu";
 import { ImScissors } from "react-icons/im";
 import { TbRectangle } from "react-icons/tb";
-import { MdOutlineArrowDropDown } from "react-icons/md";
-import { TiTick } from "react-icons/ti";
-import { GrPowerReset } from "react-icons/gr";
 import gennotateContext from '../gennotateContext/gennotateContext';
 
 cornerstoneTools.external.cornerstone = cornerstone;
@@ -43,7 +40,8 @@ class CornerstoneElement extends React.Component {
       viewport: cornerstone.getDefaultViewport(null, undefined),
       imageId: props.stack.imageIds[0],
       currentId: 0,
-      currentTool: 1
+      currentTool: 1,
+      layers: []
     };
 
     this.onImageRendered = this.onImageRendered.bind(this);
@@ -51,7 +49,9 @@ class CornerstoneElement extends React.Component {
     this.onWindowResize = this.onWindowResize.bind(this);
     this.updateImage = this.updateImage.bind(this);
   }
-
+  // this.setState((prevState) => ({
+  //   layers: [...prevState.layers, newLayer]
+  // }));
   render() {
     return (
     <Box sx={{ width: '100vw', height: '100vh' }}>
@@ -355,8 +355,11 @@ class CornerstoneElement extends React.Component {
               </Box>
             </Box>
           </Box>
-          <Box sx={{ background: 'rgba(0, 0, 0, 0.2)', marginTop: '10px', height: '410px', padding: '10px', borderRadius: '5px' }}>
+          <Box sx={{ background: 'rgba(0, 0, 0, 0.2)', marginTop: '10px', height: '410px', padding: '10px', borderRadius: '5px', overflowY: 'auto' }}>
             <Typography sx={{ height: '30px', background: 'rgba(0, 0, 0, 0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 'bold', borderRadius: '5px' }}>Layers</Typography>
+            {this.state.layers.map((label, index)=>(<Box sx={{ background: 'rgba(0, 0, 0, 0.2)', borderRadius: '5px' }} mt={1}>
+            <Typography sx={{ height: '30px', display: 'flex', alignItems: 'center', justifyContent: 'left', color: 'white' }} px={1}>{index + 1}. {label}</Typography>
+            </Box>))}
           </Box>
         </Box>
       </Box>
@@ -417,6 +420,44 @@ class CornerstoneElement extends React.Component {
       );
       element.addEventListener("cornerstonenewimage", this.onNewImage);
       window.addEventListener("resize", this.onWindowResize);
+        // this.setState((prevState) => ({
+        //   layers: [...prevState.layers, newLayer]
+        // }));
+      element.addEventListener(cornerstoneTools.EVENTS.MEASUREMENT_COMPLETED, (event) => {
+        const measurementData = event.detail.measurementData;
+        if (measurementData) {
+          if (event.detail.toolType.includes('FreehandRoi')) {
+            this.setState((prevState) => ({
+              layers: [...prevState.layers, 'Freehand Roi']
+            }));
+          }
+          else if (event.detail.toolType.includes('RectangleRoi')) {
+            this.setState((prevState) => ({
+              layers: [...prevState.layers, 'Rectangle Roi']
+            }));
+          }
+          else if (event.detail.toolType.includes('Length')) {
+            this.setState((prevState) => ({
+              layers: [...prevState.layers, 'Length']
+            }));
+          }
+          else if (event.detail.toolType.includes('ArrowAnnotate')) {
+            this.setState((prevState) => ({
+              layers: [...prevState.layers, 'Arrow Annotate']
+            }));
+          }
+          else if (event.detail.toolType.includes('EllipticalRoi')) {
+            this.setState((prevState) => ({
+              layers: [...prevState.layers, 'Elliptical Roi']
+            }));
+          }
+          else if (event.detail.toolType.includes('TextMarker')) {
+            this.setState((prevState) => ({
+              layers: [...prevState.layers, 'Text Marker']
+            }));
+          }
+        }
+    });
     });
   }
 

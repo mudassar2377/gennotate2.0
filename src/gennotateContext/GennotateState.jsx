@@ -215,6 +215,10 @@ const GennotateState = (props) =>{
       })
       .then((responseData) => {
         console.log(responseData);
+        // Mission Completed!
+        if (responseData.message === "Mission Completed!") {        
+          getGeneratedImages({ userId: user.id })
+        }
       })
       .catch((error) => {
         console.log('Error:', error.message || 'An error occurred.');

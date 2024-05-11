@@ -31,7 +31,7 @@ const Custom = () => {
     color: '#154d4f'
   };
   const context = useContext(gennotateContext);
-  const { setFile, cleanImages } = context;
+  const { setFile, cleanImages, user } = context;
   useEffect(()=>{
     window.scrollTo(0, 0);
     setFile('');
@@ -42,7 +42,7 @@ const Custom = () => {
     setName(e.target.files[0].name);
   }
   const handleSubmit = () =>{
-      cleanImages({ "userId": user.id })
+      cleanImages(user.id)
   }
   return (
     <Box>
